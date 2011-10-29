@@ -16,27 +16,27 @@
 YAHOO.namespace("test");
 
 YAHOO.test.BinarySearchTree = (function(){
-    
+
     var assert = YAHOO.util.Assert;
-    
+
     //-------------------------------------------------------------------------
     // Base Test Suite
     //-------------------------------------------------------------------------
-    
+
     var suite = new YAHOO.tool.TestSuite("Doubly Linked List Tests");
-    
+
     //-------------------------------------------------------------------------
     // Test Case for adding
     //-------------------------------------------------------------------------
-    
+
     suite.add(new YAHOO.tool.TestCase({
-    
+
         name : "add() Tests",
 
         setUp: function(){
             this.tree = new BinarySearchTree();
         },
-        
+
         tearDown: function(){
             delete this.tree;
         },
@@ -44,42 +44,42 @@ YAHOO.test.BinarySearchTree = (function(){
         //---------------------------------------------------------------------
         // Tests
         //---------------------------------------------------------------------
-    
+
         testAddSingle: function(){
             this.tree.add(5);
-            
+
             assert.areEqual(1, this.tree.size(), "Tree should have one item.");
-            assert.areEqual(5, this.tree._root.value, "First item should have value of 5.");                                        
+            assert.areEqual(5, this.tree._root.value, "First item should have value of 5.");
         },
-        
+
         testAddMultiple: function(){
             this.tree.add(5);
             this.tree.add(10);
-            
+
             assert.areEqual(2, this.tree.size(), "Tree should have two items.");
-            assert.areEqual(5, this.tree._root.value, "First item should have value of 5.");                                        
+            assert.areEqual(5, this.tree._root.value, "First item should have value of 5.");
         },
-        
+
         testAddDuplicates: function(){
             this.tree.add(5);
             this.tree.add(5);
-            
-            assert.areEqual(1, this.tree.size(), "Tree should have one item.");         
+
+            assert.areEqual(1, this.tree.size(), "Tree should have one item.");
         }
     }));
-    
+
     //-------------------------------------------------------------------------
     // Test Case for contains()
     //-------------------------------------------------------------------------
-    
+
     suite.add(new YAHOO.tool.TestCase({
-    
+
         name : "contains() Tests",
 
         setUp: function(){
             this.tree = new BinarySearchTree();
         },
-        
+
         tearDown: function(){
             delete this.tree;
         },
@@ -87,22 +87,22 @@ YAHOO.test.BinarySearchTree = (function(){
         //---------------------------------------------------------------------
         // Tests
         //---------------------------------------------------------------------
-    
+
         testContains: function(){
             this.tree.add(5);
-            
+
             assert.isTrue(this.tree.contains(5));
             assert.isFalse(this.tree.contains(10));
-                                      
+
         }
-    }));    
-    
+    }));
+
     //-------------------------------------------------------------------------
     // Test Case for removing values
     //-------------------------------------------------------------------------
-    
+
     suite.add(new YAHOO.tool.TestCase({
-    
+
         name : "remove() Tests",
 
         setUp: function(){
@@ -111,7 +111,7 @@ YAHOO.test.BinarySearchTree = (function(){
             this.tree.add(10);
             this.tree.add(6);
         },
-        
+
         tearDown: function(){
             delete this.tree;
         },
@@ -119,14 +119,14 @@ YAHOO.test.BinarySearchTree = (function(){
         //---------------------------------------------------------------------
         // Tests
         //---------------------------------------------------------------------
-    
+
         testRemoveFirstItem: function(){
             this.tree.remove(5);
             assert.areEqual(2, this.tree.size(), "There should only be two items left.");
             assert.areEqual(10, this.tree._root.value, "Root value should now be 10.");
             assert.isFalse(this.tree.contains(5));
         },
-        
+
         testRemoveFirstItemToo: function(){
             this.tree.remove(10);
             this.tree.remove(5);
@@ -135,13 +135,13 @@ YAHOO.test.BinarySearchTree = (function(){
             assert.isFalse(this.tree.contains(5));
             assert.isFalse(this.tree.contains(10));
         },
-        
+
         testRemoveMiddleItem: function(){
             this.tree.remove(10);
             assert.areEqual(2, this.tree.size(), "There should only be two items left.");
             assert.isFalse(this.tree.contains(10));
         },
-        
+
         testRemoveLastItem: function(){
             this.tree.remove(6);
             assert.areEqual(2, this.tree.size(), "There should only be two items left.");
@@ -155,22 +155,22 @@ YAHOO.test.BinarySearchTree = (function(){
             assert.areEqual(0, this.tree.size(), "There should only be two items left.");
             assert.isFalse(this.tree.contains(6));
             assert.isFalse(this.tree.contains(5));
-            assert.isFalse(this.tree.contains(10));            
-        }                
-    }));        
+            assert.isFalse(this.tree.contains(10));
+        }
+    }));
 
     //-------------------------------------------------------------------------
     // Test Case for converting to an array
     //-------------------------------------------------------------------------
-    
+
     suite.add(new YAHOO.tool.TestCase({
-    
+
         name : "toArray() Tests",
 
         setUp: function(){
             this.tree = new BinarySearchTree();
         },
-        
+
         tearDown: function(){
             delete this.tree;
         },
@@ -178,13 +178,13 @@ YAHOO.test.BinarySearchTree = (function(){
         //---------------------------------------------------------------------
         // Tests
         //---------------------------------------------------------------------
-    
+
         testToArrayForEmptyList: function(){
             var value = this.tree.toArray();
             assert.isInstanceOf(Array, value, "Value should be an array.");
             assert.areEqual(0, value.length, "Array should be empty.");
         },
-        
+
         testToArrayForOneItemList: function(){
             this.tree.add(5);
             var value = this.tree.toArray();
@@ -192,7 +192,7 @@ YAHOO.test.BinarySearchTree = (function(){
             assert.areEqual(1, value.length, "Array should have 1 item.");
             assert.areEqual(5, value[0], "The only item should be 5.");
         },
-        
+
         testToArrayForTwoItemList: function(){
             this.tree.add(5);
             this.tree.add(10);
@@ -202,7 +202,7 @@ YAHOO.test.BinarySearchTree = (function(){
             assert.areEqual(5, value[0], "The first item should be 5.");
             assert.areEqual(10, value[1], "The second item should be 10.");
         },
-        
+
         testToArrayForMultipleItems: function(){
             this.tree.add(55);
             this.tree.add(10);
@@ -212,17 +212,17 @@ YAHOO.test.BinarySearchTree = (function(){
             this.tree.add(5);
             this.tree.add(16);
             this.tree.add(25);
-            
+
             var value = this.tree.toArray();
             assert.isInstanceOf(Array, value, "Value should be an array.");
             assert.areEqual(7, value.length, "Array should have 7 items.");
             YAHOO.util.ArrayAssert.itemsAreEqual([5, 10, 16, 25, 29, 40, 55], value);
-       
-        
+
+
         }
 
-                
-    }));    
+
+    }));
 
     //return it
     return suite;
@@ -232,7 +232,7 @@ YAHOO.test.BinarySearchTree = (function(){
 (function (){
     //create the logger
     var logger = new YAHOO.tool.TestLogger();
-    
+
     //add the tests
     YAHOO.tool.TestRunner.add(YAHOO.test.BinarySearchTree);
     YAHOO.tool.TestRunner.run();
